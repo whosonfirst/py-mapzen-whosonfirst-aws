@@ -47,13 +47,18 @@ class s3(base):
 
         self.bucketname = kwargs['bucket']
 
-        conn = S3Connection(self._key_, self._secret_)
+        if self._key_ and self._secret_:
+            conn = S3Connection(self._key_, self._secret_)
+        else:
+            logging.debug("Assuming credentials are somewhere boto can find them by itself")
+            conn = S3Connection()
+
         bucket = conn.get_bucket(self.bucketname)
         
         self.conn = conn
         self.bucket = bucket
 
-    def store_file(self, path):
+    def store_file(self, path, **kwargs):
 
         abs_path = os.path.abspath(path)
 
@@ -68,11 +73,18 @@ class s3(base):
 
         rel_path = utils.id2relpath(id)
 
+        if kwargs.get("prefix", None):
+            rel_path = os.path.join(kwargs['prefix'], rel_path)
+
+        logging.debug("copy %s to %s:%s" % (abs_path, self.bucket, rel_path))
+
         k = Key(self.bucket)
         k.key = rel_path
 
         k.set_contents_from_filename(abs_path)
-        k.set_acl('public-read')
+
+        acl = kwargs.get('acl', 'public-read')
+        k.set_acl(acl)
 
         # print k.generate_url(expires_in=0, query_auth=False)
         return True

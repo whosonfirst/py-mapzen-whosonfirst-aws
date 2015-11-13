@@ -8,7 +8,7 @@ desc = open("README.md").read(),
 setup(
     name='mapzen.whosonfirst.aws',
     namespace_packages=['mapzen', 'mapzen.whosonfirst', 'mapzen.whosonfirst.aws'],
-    version='0.1',
+    version='0.2',
     description='Tools and helper library for working with Amazon Web Services (AWS) and Who\'s on First data',
     author='Mapzen',
     url='https://github.com/mapzen/py-mapzen-whosonfirst-aws',
@@ -23,5 +23,5 @@ setup(
     packages=packages,
     scripts=[
         ],
-    download_url='https://github.com/mapzen/py-mapzen-whosonfirst-aws/releases/tag/v0.1',
+    download_url='https://github.com/mapzen/py-mapzen-whosonfirst-aws/releases/tag/v0.2',
     license='BSD')
