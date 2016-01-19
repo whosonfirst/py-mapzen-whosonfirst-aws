@@ -1,0 +1,3 @@
+boto
+geojson
+git+git://github.com/whosonfirst/py-mapzen-whosonfirst-utils
